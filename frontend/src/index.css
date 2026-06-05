@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #07140c, #0d2618, #0f3b20);
+    color: #f8fafc;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Background Overlay Utility */
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Top Nav Actions Utility */
+.top-nav-actions {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+}
+
+.user-welcome {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+/* Header Section */
+.head {
+    padding: 40px 20px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #4ade80, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 10px rgba(34, 197, 94, 0.3);
+}
+
+.separator {
+    width: 60%;
+    margin: 30px auto;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+/* Grid layout for cards */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Glassmorphism Cards */
+.nav-card {
+    background: rgba(15, 24, 18, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(74, 222, 128, 0.18);
+    border-radius: 16px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.45);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-card:hover {
+    transform: translateY(-10px);
+    background: rgba(24, 45, 34, 0.86);
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    box-shadow: 0 15px 40px rgba(33, 139, 69, 0.25);
+}
+
+/* Descriptions inside cards */
+.nav-desc {
+    color: #cbd5dc;
+    font-size: 0.95rem;
+    margin-top: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Fancy Buttons */
+.nav-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(20, 124, 49, 0.5);
+}
+
+.nav-btn:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    box-shadow: 0 6px 20px rgba(20, 124, 49, 0.7);
+    transform: scale(1.05);
+}
+
+/* Main Body Section */
+.corpo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.corpo p {
+    font-size: 1.25rem;
+    color: #d9e4df;
+    max-width: 800px;
+    line-height: 1.8;
+}
+
+/* Footer Section */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(7, 18, 12, 0.32);
+    border-top: 1px solid rgba(74, 222, 128, 0.12);
+    color: #a8b5aa;
+    font-size: 0.9rem;
+    margin-top: auto;
+}

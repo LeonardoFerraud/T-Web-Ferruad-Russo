@@ -1,0 +1,13 @@
+# Documento di Ideazione
+
+## Scenari Tipici di Utilizzo
+1. ...
+
+## Tipologie di Utilizzatori (Attori Principali) e Obiettivi
+* Attore 1,... Obiettivo:...
+
+## Casi d'Uso (Procedimenti)
+Per ciascun terzetto "scenario/utilizzatore/obiettivo"...
+
+### Caso d'Uso Selezionato per Implementazione
+...

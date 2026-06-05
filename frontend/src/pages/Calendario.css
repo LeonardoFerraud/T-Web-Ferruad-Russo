@@ -1,0 +1,373 @@
+.calendario-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+}
+
+@media (min-width: 1200px) {
+    .calendario-main-layout {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 30px;
+        align-items: start;
+    }
+    
+    .calendario-details {
+        position: sticky;
+        top: 20px;
+    }
+}
+
+.calendario-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.calendario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: rgba(6, 24, 16, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 36px 0 rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.calendario-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0px 2px 5px rgba(34, 197, 94, 0.35);
+}
+
+.calendario-nav-btn {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid rgba(74, 222, 128, 0.15);
+    border-radius: 6px;
+    background: rgba(10, 20, 14, 0.82);
+    font-weight: 600;
+    color: #d1d5db;
+    transition: all 0.3s ease;
+}
+
+.calendario-nav-btn:hover {
+    background: rgba(34, 197, 94, 0.2);
+    color: #fff;
+    border-color: rgba(74, 222, 128, 0.35);
+}
+
+.calendario-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.calendario-weekday {
+    text-align: center;
+    font-weight: bold;
+    color: #4ade80;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.calendario-day {
+    padding: 10px;
+    border: 1px solid rgba(74, 222, 128, 0.15);
+    border-radius: 8px;
+    min-height: 80px;
+    cursor: pointer;
+    background: rgba(10, 22, 15, 0.78);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.2s ease;
+}
+
+.calendario-day:hover {
+    background: rgba(74, 222, 128, 0.16);
+    transform: translateY(-2px);
+    border-color: rgba(74, 222, 128, 0.45);
+}
+
+.calendario-day.selected {
+    background: rgba(34, 197, 94, 0.2);
+    box-shadow: 0 0 0 2px #4ade80;
+    border-color: #4ade80;
+}
+
+.calendario-day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #d1d5db;
+}
+
+.calendario-day.selected .calendario-day-number {
+    color: #fff;
+}
+
+.calendario-events-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.calendario-event-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.8);
+}
+
+.calendario-details {
+    background: rgba(9, 24, 16, 0.88);
+    backdrop-filter: blur(10px);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 36px 0 rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(74, 222, 128, 0.18);
+}
+
+.calendario-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+}
+
+.calendario-details-header h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.calendario-details-header h3 span {
+    color: #4ade80;
+}
+
+.btn-add-event {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-add-event:hover {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6);
+    transform: scale(1.05);
+}
+
+.calendario-event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.calendario-event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 4px solid #4ade80;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.calendario-event-item strong {
+    font-size: 18px;
+    display: block;
+    color: #fff;
+}
+
+.calendario-event-item p {
+    margin: 8px 0 0;
+    font-size: 15px;
+    color: #d1d5db;
+}
+
+.btn-delete-event {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px;
+    transition: transform 0.2s ease;
+}
+
+.btn-delete-event:hover {
+    transform: scale(1.2);
+}
+
+/* Modal styles */
+.calendario-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.calendario-modal {
+    background: rgba(8, 19, 12, 0.96);
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    color: #fff;
+}
+
+.calendario-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendario-modal-header h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #4ade80;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #9ca3af;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.btn-close-modal:hover {
+    color: #fff;
+}
+
+.calendario-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.calendario-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+.calendario-form input,
+.calendario-form textarea {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+.calendario-form input:focus,
+.calendario-form textarea:focus {
+    outline: none;
+    border-color: #4ade80;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+.calendario-form input::placeholder,
+.calendario-form textarea::placeholder {
+    color: #9ca3af;
+}
+
+.calendario-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-cancel {
+    flex: 1;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-submit {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6);
+}
+
+.btn-back {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: rgba(255,255,255,0.2);
+}

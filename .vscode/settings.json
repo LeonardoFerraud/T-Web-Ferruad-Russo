@@ -1,0 +1,15 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 1234,
+            "driver": "PostgreSQL",
+            "name": "GestioneLogin@localhost",
+            "database": "GestioneLogin",
+            "username": "utente0"
+        }
+    ]
+}
