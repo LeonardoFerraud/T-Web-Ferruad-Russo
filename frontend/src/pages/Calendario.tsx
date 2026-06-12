@@ -55,6 +55,7 @@ function Calendario() {
         localStorage.setItem(`calendario_events_${teamKey}`, JSON.stringify(events));
     }, [events, teamKey]);
 
+    //restituire il numero di giorni del mese e abbinarli al giorno della settimana (Lun-Dom)
     const getDaysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
     const getFirstDayOfMonth = (year: number, month: number) => {
         const day = new Date(year, month, 1).getDay();
@@ -69,6 +70,7 @@ function Calendario() {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
     };
 
+    //creare la griglia del mese
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const daysInMonth = getDaysInMonth(year, month);
@@ -79,6 +81,7 @@ function Calendario() {
         "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
     ];
 
+    //restituire la data in forma standard
     const generateDateString = (y: number, m: number, d: number) => {
         return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     };
@@ -109,6 +112,7 @@ function Calendario() {
     };
 
     const days = [];
+    //cicli per impaginare le celle del calendario
     for (let i = 0; i < firstDay; i++) {
         days.push(<div key={`empty-${i}`} className="calendario-day" style={{ visibility: 'hidden', border: 'none', background: 'transparent', boxShadow: 'none' }}></div>);
     }
