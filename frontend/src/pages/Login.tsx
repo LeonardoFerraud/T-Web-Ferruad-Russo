@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login: React.FC = () => {
+    //stati locali
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -29,14 +30,14 @@ const Login: React.FC = () => {
             if (response.ok && data.success) {
                 const teamName = data.teamName || 'default';
                 const role = data.role?.toUpperCase();
-                // Store user info in localStorage for simple session persistence on frontend
+                // salvare gli utenti in localStorage per la persistenza del frontend
                 localStorage.setItem('user', JSON.stringify({
                     username: data.username,
                     role: role,
                     teamName: teamName
                 }));
 
-                // Auto-add player to roster if role is PLAYER or GIOCATORE
+                // Se nuovo login come giocatore aggiungi al roster
                 if (role === 'PLAYER' || role === 'GIOCATORE') {
                     const rosterKey = `roster_data_${teamName}`;
                     const rosterSaved = localStorage.getItem(rosterKey);
@@ -58,7 +59,7 @@ const Login: React.FC = () => {
                     }
                 }
 
-                // Auto-add coach to roster if role is MANAGER, ALLENATORE or MISTER
+                // aggiungere allenatore al roster
                 if (role === 'MANAGER' || role === 'ALLENATORE' || role === 'MISTER') {
                     const rosterKey = `roster_data_${teamName}`;
                     const rosterSaved = localStorage.getItem(rosterKey);
@@ -77,7 +78,7 @@ const Login: React.FC = () => {
                     }
                 }
                 
-                // Redirect to home
+                // rimanda alla home
                 navigate('/');
             } else {
                 setError(data.message || 'Errore durante il login');
@@ -134,7 +135,7 @@ const Login: React.FC = () => {
                             const teamName = 'Ospiti';
                             localStorage.setItem('user', JSON.stringify({ username: 'Giocatore Provvisorio', role: 'GIOCATORE', teamName: teamName }));
                             
-                            // Auto-add Giocatore Provvisorio to roster
+                            // add giocatore provvisorio al roster
                             const rosterKey = `roster_data_${teamName}`;
                             const rosterSaved = localStorage.getItem(rosterKey);
                             let rosterObj = rosterSaved ? JSON.parse(rosterSaved) : { staff: [], portieri: [], difensori: [], centrocampisti: [], attaccanti: [] };

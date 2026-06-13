@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SharedPages.css';
-import './Rosa.css'; // Reuso gli stili del modal di Rosa.tsx
+import './Rosa.css';
 
 interface SuspendedPlayer {
     id: string;

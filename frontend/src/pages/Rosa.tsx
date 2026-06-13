@@ -24,6 +24,7 @@ interface RosterState {
     attaccanti: Member[];
 }
 
+//inizializzare un elenco di default per le squadra nuove
 const initialRoster: RosterState = {
     staff: [
         { id: 's1', name: 'Allenatore Principale', role: 'Mister', goals: 0, assists: 0, appearances: 0 },
@@ -87,7 +88,7 @@ function Rosa() {
     }, [roster]);
 
     useEffect(() => {
-        // Fetch registered players for the team from database
+        //cercare i giocatori del team salvati nel db
         fetch('http://localhost:8080/api/team-players', { credentials: 'include' })
             .then(res => res.ok ? res.json() : Promise.reject())
             .then((dbPlayers: any[]) => {
@@ -100,7 +101,7 @@ function Rosa() {
                     dbPlayers.forEach(p => {
                         const username = p.username;
                         
-                        // Check if this player is already in any of our roster categories
+                        //controllare se il giocatore è già in un roster
                         const exists = 
                             newState.portieri.some(m => m.name === username) ||
                             newState.difensori.some(m => m.name === username) ||
@@ -108,7 +109,7 @@ function Rosa() {
                             newState.attaccanti.some(m => m.name === username);
                             
                         if (!exists) {
-                            // Automatically add to default category 'attaccanti'
+                            // se non esiste assegnagli la cat attaccante
                             const newPlayer: Member = {
                                 id: 'db_' + username,
                                 name: username,
@@ -128,7 +129,7 @@ function Rosa() {
                 console.log("Errore nel recupero dei giocatori dal database", err);
             });
 
-        // Fetch registered staff for the team from database
+        //controllo staff registrato nel db
         fetch('http://localhost:8080/api/team-staff', { credentials: 'include' })
             .then(res => res.ok ? res.json() : Promise.reject())
             .then((dbStaff: any[]) => {
@@ -141,11 +142,11 @@ function Rosa() {
                     dbStaff.forEach(s => {
                         const username = s.username;
                         
-                        // Check if this staff member is already in staff category
+                        //controllo se ha già la cat staff
                         const exists = newState.staff.some(m => m.name === username);
                             
                         if (!exists) {
-                            // Automatically add to staff category
+                            //se non ha già la cat gli assegno staff
                             const newStaff: Member = {
                                 id: 'db_' + username,
                                 name: username,
@@ -170,7 +171,7 @@ function Rosa() {
     const [activeTab, setActiveTab] = useState<TabKey>('all');
     const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
     
-    // Modal State
+    // stato del Modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingMemberId, setEditingMemberId] = useState<string | null>(null);
     const [modalCategory, setModalCategory] = useState<keyof RosterState>('portieri');
@@ -225,6 +226,7 @@ function Rosa() {
         };
     };
 
+    //permettere al mister di modificare i giocatori
     const openModal = (category: keyof RosterState, member?: Member) => {
         if (!isCoach) return;
         setModalCategory(category);
@@ -273,7 +275,7 @@ function Rosa() {
             return newState;
         });
         
-        setSelectedMemberId(memberData.id); // Select the newly edited/added member
+        setSelectedMemberId(memberData.id); //select nuovi/aggiornati memeber
         setIsModalOpen(false);
     };
 
@@ -306,7 +308,7 @@ function Rosa() {
         { key: 'attaccanti', title: 'Attaccanti', short: 'ATT' },
     ];
 
-    // Derived state for the list
+    //recuperare lo stato dalla lista
     const displayedMembers = useMemo(() => {
         let members: (Member & { category: keyof RosterState, categoryName: string })[] = [];
         
@@ -336,7 +338,7 @@ function Rosa() {
         return null;
     }, [selectedMemberId, displayedMembers]);
 
-    // Set first member as selected when changing tabs if none is selected
+    //Se non è selezionato alcun membro al cambio di scheda, imposta il primo come selezionato quando si cambia scheda.
     useEffect(() => {
         if (displayedMembers.length > 0 && (!selectedMemberId || !displayedMembers.find(m => m.id === selectedMemberId))) {
             setSelectedMemberId(displayedMembers[0].id);

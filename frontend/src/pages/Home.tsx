@@ -63,7 +63,9 @@ function Home() {
             <div style={{ position: 'relative', zIndex: 1 }}>
                 <div className="top-nav-actions">
                     {user ? (
-                        <>
+               
+               
+               <>
                             <span className="user-welcome">Ciao, {user.username} {user.teamName ? `(${user.teamName})` : ''}</span>
                             <button className="nav-btn" style={{ width: 'auto', padding: '8px 15px' }} onClick={handleLogout}>Logout</button>
                         </>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import './Login.css'; // Reuse Login styles
+import './Login.css';
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -30,6 +30,7 @@ const Register: React.FC = () => {
 
         setLoading(true);
 
+        //registrazione nuovi utenti
         try {
             const response = await fetch('http://localhost:8080/api/register', {
                 method: 'POST',
