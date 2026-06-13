@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 function Home() {
     const navigate = useNavigate();
+    //mantenere lo stato dell'utente
     const [user, setUser] = useState<{ username: string, role: string, teamName?: string } | null>(null);
 
     useEffect(() => {
@@ -32,6 +33,7 @@ function Home() {
             });
     }, [navigate]);
 
+    //gestire il loguot
     const handleLogout = () => {
         localStorage.removeItem('user');
         setUser(null);
@@ -39,7 +41,7 @@ function Home() {
         navigate('/login');
     };
 
-
+    //gestire i collegamenti alle altre pagine filtrare per ruoli
     const allNavItems = [
         { path: '/formazione', label: 'Formazione', desc: 'Gestisci i titolari e le riserve per la prossima partita.', roles: ['ALLENATORE', 'MANAGER', 'MISTER', 'GIOCATORE', 'PLAYER'] },
         { path: '/rosa', label: 'Rosa', desc: 'Visualizza i giocatori attualmente nella tua squadra.', roles: ['ALLENATORE', 'MANAGER', 'MISTER', 'GIOCATORE', 'PLAYER', 'GUEST', 'USER'] },

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Formazione.css';
 
-// Type for a player member from Rosa
 interface Member {
     id: string;
     name: string;
@@ -56,10 +55,10 @@ interface FormationEntry {
     statsPlayers?: Record<string, { id: string; name: string; role?: string; goals: number; assists: number; minutes: number }>;
 }
 
-// Type for a player position in a modulo
+// specificare la posizione del giocatore
 type Position = { top: string; left: string; role: string; id: number };
 
-// Predefined formations
+// variabile formations per tenere traccia delle formazioni disponibili
 const formations: Record<string, Position[]> = {
     '4-4-2': [
         { id: 1, role: 'POR', top: '90%', left: '50%' },
@@ -167,7 +166,7 @@ const formations: Record<string, Position[]> = {
     ]
 };
 
-// Helper to safely load state from localStorage
+// salvataggio sicuro in local storage
 const getSaved = (key: string, def: any) => {
     const saved = localStorage.getItem(key);
     try { return saved ? JSON.parse(saved) : def; } catch { return def; }
@@ -176,6 +175,7 @@ const getSaved = (key: string, def: any) => {
 function Formazione() {
     const navigate = useNavigate();
 
+    //controllare se l'utente è allenatore
     const [isCoach] = useState(() => {
         const savedUser = localStorage.getItem('user');
         if (savedUser) {
@@ -204,7 +204,7 @@ function Formazione() {
     };
 
     const teamKey = getTeamKey();
-
+    //caricare dal loc stor gli stati iniziali
     const [roster] = useState<RosterState>(() => getSaved(`roster_data_${teamKey}`, { staff: [], portieri: [], difensori: [], centrocampisti: [], attaccanti: [] }));
     const [selectedFormation, setSelectedFormation] = useState<string>(() => localStorage.getItem(`selected_modulo_${teamKey}`) || '4-4-2');
     const [activeFormation, setActiveFormation] = useState<Record<number, Member>>(() => getSaved(`active_formation_${teamKey}`, {}));
@@ -270,12 +270,14 @@ function Formazione() {
         fetchServerHistory();
     }, [teamKey]);
 
+    //filtrare i giocatori indisponibili
     const suspendedPlayers = getSaved(`suspended_data_${teamKey}`, []) as SuspendedPlayer[];
     const injuredPlayers = getSaved(`injured_data_${teamKey}`, []) as InjuredPlayer[];
     const unavailableNames = [
         ...suspendedPlayers.filter(p => !p.isWarning).map(p => p.name),
         ...injuredPlayers.map(p => p.name)
     ];
+    //controllare i giocatori disponibili
     const allPlayersRaw = [...roster.portieri, ...roster.difensori, ...roster.centrocampisti, ...roster.attaccanti];
     const allPlayers = allPlayersRaw.filter(p => !unavailableNames.includes(p.name));
     const playersOnFieldIds = Object.values(activeFormation).map(p => p.id);
@@ -284,7 +286,7 @@ function Formazione() {
         new Map([...Object.values(activeFormation), ...benchPlayers].map(p => [p.id, p])).values()
     );
 
-    // Sync to localStorage
+    // sincro a loc stor
     useEffect(() => { localStorage.setItem(`selected_modulo_${teamKey}`, selectedFormation); }, [selectedFormation]);
     useEffect(() => { localStorage.setItem(`active_formation_${teamKey}`, JSON.stringify(activeFormation)); }, [activeFormation]);
     useEffect(() => { localStorage.setItem(`formation_history_${teamKey}`, JSON.stringify(formationHistory)); }, [formationHistory, teamKey]);
@@ -351,7 +353,7 @@ function Formazione() {
             statsPlayers
         };
 
-        // Try to POST to backend (non-blocking). If server not available or session missing, fallback silently to localStorage-only behavior.
+        // fare post a backend, se il server non risponde mantieni il comportamento locale.
         try {
             const payload: any = {
                 opponent: newEntry.opponent,
@@ -366,9 +368,9 @@ function Formazione() {
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify(payload)
-            }).catch(() => { /* ignore errors, keep local behavior */ });
+            }).catch(() => { /* ignorare gli errori e manetenrere il comportamento locale */ });
         } catch (e) {
-            // ignore
+            // ignorare
         }
 
         Object.values(statsPlayers).forEach((playerStat) => {
@@ -401,7 +403,7 @@ function Formazione() {
             };
 
             if (playerStat.minutes > 0 || playerStat.goals > 0 || playerStat.assists > 0) {
-                // If editing an existing formation, find and replace the mister-created match instead of duplicating
+                // modificare le partite senza duplicarle
                 if (editingHistoryId) {
                     const existingIndex = currentStats.matchHistory.findIndex(
                         (m: any) => m.name === matchName && m.createdBy === 'mister'
@@ -475,7 +477,7 @@ function Formazione() {
             }
         };
 
-        // If we have the formation payload, remove the related matches from players' stats in localStorage
+        //eliminare player stats se elimini una partita
         if (entryToDelete) {
             const statsList: Array<{ id: string; name: string; goals: number; assists: number; minutes: number }> = entryToDelete.statsPlayers
                 ? Object.values(entryToDelete.statsPlayers)
@@ -519,7 +521,7 @@ function Formazione() {
                             localStorage.setItem(key, JSON.stringify(parsed));
                         }
                     } catch {
-                        // ignore parse errors
+                        // ignorare
                     }
                 });
             });
@@ -534,7 +536,7 @@ function Formazione() {
     };
 
     
-
+    //inizializzare a 0 le statistiche giocatore quando fai formation entry
     const getEntryStatList = (entry: FormationEntry) => {
         const stats = entry.statsPlayers
             ? Object.values(entry.statsPlayers)
