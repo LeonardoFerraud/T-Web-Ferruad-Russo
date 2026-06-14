@@ -57,6 +57,7 @@ const getSaved = <T,>(key: string, def: T): T => {
     }
 };
 
+//assegnare colore in base al risultato
 const resultColor = (result: string) => {
     if (result === 'W') return '#22c55e';
     if (result === 'D') return '#fbbf24';
@@ -122,7 +123,7 @@ function StatisticheSquadra() {
                     }
                 }
             } catch {
-                // Use localStorage if server fetch fails
+                //se fallisce la fetch usa loc str
             }
 
             setFormationHistory(getSaved<FormationEntry[]>(`formation_history_${key}`, []));

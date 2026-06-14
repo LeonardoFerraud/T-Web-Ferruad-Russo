@@ -43,7 +43,7 @@ function StatisticheGiocatore() {
     const [statsSource, setStatsSource] = useState<'player' | 'mister'>('player');
     const [roleUsage, setRoleUsage] = useState<Record<string, number>>({});
 
-    // Form states
+    // form inserimento statistihe
     const [newMatchName, setNewMatchName] = useState('');
     const [newMatchMinutes, setNewMatchMinutes] = useState(90);
     const [newMatchGoals, setNewMatchGoals] = useState(0);
@@ -153,7 +153,7 @@ function StatisticheGiocatore() {
         saveStats({ ...stats, matchHistory: newHistory });
     };
 
-    // Computed Totals
+    //calcolare stats totali
     const totals = stats.matchHistory.reduce((acc, curr) => ({
         goals: acc.goals + curr.goals,
         assists: acc.assists + curr.assists,
@@ -162,7 +162,7 @@ function StatisticheGiocatore() {
         presenze: acc.presenze + 1
     }), { goals: 0, assists: 0, yellowCards: 0, redCards: 0, presenze: 0 });
 
-    // Custom Label for Chart
+    // CustomLabel per i grafici
     const CustomLabel = (props: any) => {
         const { x, y, index } = props;
         const match = stats.matchHistory[index];
