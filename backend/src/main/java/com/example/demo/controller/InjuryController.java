@@ -25,13 +25,13 @@ public class InjuryController {
         this.repo = repo;
     }
 
-    @PostMapping
-    public ResponseEntity<Injury> create(@RequestBody Injury injury) {
+    @PostMapping                                                       //postMapping == post + mapping per gestione HTTP
+    public ResponseEntity<Injury> create(@RequestBody Injury injury) { //create == metodo
         return ResponseEntity.ok(repo.save(injury));
     }
 
     @GetMapping
-    public ResponseEntity<List<Injury>> list() {
+    public ResponseEntity<List<Injury>> list() {                        //richiesta per ottenere lista infortunati
         return ResponseEntity.ok(repo.findAll());
     }
 
