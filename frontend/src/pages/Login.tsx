@@ -127,51 +127,6 @@ const Login: React.FC = () => {
                     </button>
                 </form>
                 
-                <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-                    <button 
-                        className="login-btn" 
-                        style={{ background: 'rgba(255, 255, 255, 0.1)', flex: 1 }}
-                        onClick={() => {
-                            const teamName = 'Ospiti';
-                            localStorage.setItem('user', JSON.stringify({ username: 'Giocatore Provvisorio', role: 'GIOCATORE', teamName: teamName }));
-                            
-                            // add giocatore provvisorio al roster
-                            const rosterKey = `roster_data_${teamName}`;
-                            const rosterSaved = localStorage.getItem(rosterKey);
-                            let rosterObj = rosterSaved ? JSON.parse(rosterSaved) : { staff: [], portieri: [], difensori: [], centrocampisti: [], attaccanti: [] };
-                            const exists = 
-                                rosterObj.portieri.some((m: any) => m.name === 'Giocatore Provvisorio') ||
-                                rosterObj.difensori.some((m: any) => m.name === 'Giocatore Provvisorio') ||
-                                rosterObj.centrocampisti.some((m: any) => m.name === 'Giocatore Provvisorio') ||
-                                rosterObj.attaccanti.some((m: any) => m.name === 'Giocatore Provvisorio');
-                            if (!exists) {
-                                rosterObj.attaccanti.push({
-                                    id: 'db_Giocatore Provvisorio',
-                                    name: 'Giocatore Provvisorio',
-                                    goals: 0,
-                                    assists: 0,
-                                    appearances: 0
-                                });
-                                localStorage.setItem(rosterKey, JSON.stringify(rosterObj));
-                            }
-                            
-                            navigate('/');
-                        }}
-                    >
-                        Accedi come Giocatore
-                    </button>
-                    <button 
-                        className="login-btn" 
-                        style={{ background: 'rgba(255, 255, 255, 0.05)', flex: 1 }}
-                        onClick={() => {
-                            localStorage.setItem('user', JSON.stringify({ username: 'Ospite', role: 'GUEST', teamName: 'Ospiti' }));
-                            navigate('/');
-                        }}
-                    >
-                        Accedi come Ospite
-                    </button>
-                </div>
-                
                 <div className="login-footer">
                     <p>Non hai un account? <Link to="/register">Registrati qui</Link></p>
                     <p>Problemi di accesso? <a href="#">Contatta l'admin</a></p>
